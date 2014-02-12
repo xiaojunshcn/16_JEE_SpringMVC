@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd" [
+<!ENTITY contextInclude SYSTEM "org/springframework/web/context/WEB-INF/contextInclude.xml">
+]>
+
+<beans>
+    <bean id="userDao" class="com.joe.springmvc.controller.dao.UserDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="userManagerBase" class="com.joe.springmvc.controller.service.UserManager">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="userManager" parent="transactionBase">
+		<property name="target" ref="userManagerBase"></property>
+	</bean>
+	<bean id="springManager" class="com.joe.springmvc.controller.annotation.SpringManager"/>
+</beans>

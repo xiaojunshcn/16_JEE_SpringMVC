@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xmlns:p="http://www.springframework.org/schema/p"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xsi:schemaLocation="http://www.springframework.org/schema/beans  
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+      http://www.springframework.org/schema/context  
+      http://www.springframework.org/schema/context/spring-context.xsd  
+      http://www.springframework.org/schema/mvc  
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+      
+	<bean name="/test1/img.do" class="com.joe.springmvc.controller.StaticController">
+		<property name="methodNameResolver">
+			<ref bean="paramMethodResolver"/>
+		</property>
+	</bean>
+	<bean name="/test1/multi" class="com.joe.springmvc.controller.MultiController">
+		<property name="methodNameResolver">
+			<ref bean="paramMethodResolver"/>
+		</property>
+	</bean>
+	<bean name="/test1/helloworld" class="com.joe.springmvc.controller.HelloWorldController" />
+	
+	<!-- 静态资源访问 -->
+	 <mvc:resources location="/img/" mapping="/img/**"/>  
+	 <mvc:resources location="/js/" mapping="/js/**"/> 
+	 
+	<bean id="paramMethodResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName" value="a"></property>	
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+ </beans>  
